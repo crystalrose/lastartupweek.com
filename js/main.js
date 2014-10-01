@@ -136,6 +136,11 @@ jQuery(document).ready(function($) {
 		navigation : true,
 		navigationText : ['<i class="fa fa-3x fa-chevron-circle-left"></i>','<i class="fa fa-3x  fa-chevron-circle-right"></i>'],
 	});
+
+	$('.item .event').on('click', function() {
+		$('.item .event.active').removeClass('active');
+		$(this).addClass('active');
+	});
 	
 	
 	//FIX HOVER EFFECT ON IOS DEVICES

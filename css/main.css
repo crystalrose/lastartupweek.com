@@ -379,7 +379,7 @@ h4 {
 	display:table;
 	width:100%;
 	border-spacing: 10px 5px;
-	height: 110px; 
+	height: 110px;
 }
 
 .event-inner {
@@ -412,8 +412,16 @@ h4 {
 
 .event .description {
 	padding:15px;
-	display:table-cell;
-	vertical-align:middle;
+	overflow: hidden;
+	height: 110px;
+	-webkit-transition: all .5s ease-out;
+	-moz-transition: all .5s ease-out;
+	-o-transition: all .5s ease-out;
+	transition: all .5s ease-out;
+}
+
+.event.active .description {
+	height: auto;
 }
 
 .event .description p {
