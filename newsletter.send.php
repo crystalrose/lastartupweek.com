@@ -2,9 +2,9 @@
 
 	/* Contact Form Setup Begin */
 
-	$send_name      = "Evential 2014";		// Replace your name
-	$send_title     = "Subscribe Form";		// Replace email sent title
-	$send_address   = "name@domain.com";	// Replace your email address
+	$send_name      = "LA Startup Week";		// Replace your name
+	$send_title     = "Newsletter Signup";		// Replace email sent title
+	$send_address   = "events@lastartupweek.com";	// Replace your email address
 	
 	$smtp_address   = "mail@domain";		// Replace your email address
 	$smtp_password	= "123456";				// Replace your email password
