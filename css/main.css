@@ -687,18 +687,25 @@ h4 {
 	font-size:16px;
 	padding:0;
 	position:relative;
+	background: url(../img/icon-bg.jpg) center center repeat fixed;
 }
 
 .contact {
 	padding:15px;
-	margin:0 15px 0 10px;
-	height:576px;
-	position:absolute;
+	height:auto;
 	bottom:0;
+	text-align: center;
 }
 
 .contact h2 {
 	margin-bottom:10px;
+}
+
+#contact-title {
+	font-family: 'Economica';
+	font-size: 61px;
+	font-weight: 700;
+	color: white;
 }
 
 #contact p {
@@ -713,6 +720,36 @@ h4 {
 #contact .social {
 	position:absolute;
 	bottom:5px;
+}
+
+#contact .contact {
+	background: transparent;
+}
+
+#contact .social-icons {
+	background: url(../img/social_sprite.png) 0 0 no-repeat;
+	width: 200px;
+	height: 160px;
+	display: inline-block;
+	opacity: .7;
+	-webkit-transition: all .3s ease-out;
+	-moz-transition: all .3s ease-out;
+	-o-transition: all .3s ease-out;
+	transition: all .3s ease-out;
+}
+
+#contact .social-icons:hover {
+	opacity: 1;
+}
+
+#contact .social-icons.mail {
+	background-position: -50px -50px;
+}
+#contact .social-icons.facebook {
+	background-position: -610px -50px;
+}
+#contact .social-icons.twitter {
+	background-position: -320px -50px;
 }
 
 #gmap_canvas {
