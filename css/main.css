@@ -482,11 +482,18 @@ h4 {
 	position:relative;
 }
 
+#googlemaps {
+	width:100%;
+	height:auto;
+	min-height:540px;
+	position:relative;
+}
+
 .venue-address {
 	padding:15px;
 	margin:0 15px;
 	min-height:250px;
-	position:relative;
+	position:absolute;
 	bottom:0;
 	
 }
