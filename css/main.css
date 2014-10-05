@@ -474,7 +474,7 @@ h4 {
 }
 
 .venue {
-	background:url(../img/venue-bg.png) bottom center no-repeat;
+	/*background:url(../img/venue-bg.png) bottom center no-repeat;*/
 	width:100%;
 	height:auto;
 	min-height:540px;
@@ -486,8 +486,9 @@ h4 {
 	padding:15px;
 	margin:0 15px;
 	min-height:250px;
-	position:absolute;
+	position:relative;
 	bottom:0;
+	
 }
 
 #venue h3 {

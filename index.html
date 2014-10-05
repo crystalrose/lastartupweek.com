@@ -766,23 +766,23 @@
         
         <!-- VENUE -->
         <section id="venue">
-			<div class="venue">
-            	<div class="container">
-                	<div class="row">
-                    	<div class="venue-address">
-                            <h2 class="uppercase">Locations</h2>
-                            <p>Events are hosted in Los Angeles at venues, parks, <br /> and beaches spread out all over the city.  </p>
-                            
-                            <p class="address">
-                            <i class="fa fa-2x fa-map-marker fa-inverse"></i>
-                            	Basecamp<br>
-								General Assembly<br>
-                                1520 2nd st.
-                                Santa Monica, CA 90401
-                            </p>
-                            
-                            <a class="button button-light" href="#">view map</a>
-                        </div>
+			<div class="venue" id="googlemaps">
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="venue-address">
+                        <h2 class="uppercase">Locations</h2>
+                        <p>Events are hosted in Los Angeles at venues, parks, <br /> and beaches spread out all over the city.  </p>
+                        
+                        <p class="address">
+                        <i class="fa fa-2x fa-map-marker fa-inverse"></i>
+                            Basecamp<br>
+                            General Assembly<br>
+                            1520 2nd st.
+                            Santa Monica, CA 90401
+                        </p>
+                        
+                        <a class="button button-light" href="#">view map</a>
                     </div>
                 </div>
             </div>
@@ -814,7 +814,7 @@
             </div>           
             
         </section>
-        <!--//VENUE --->
+        <!--//VENUE -->
 
         <!-- TESTIMONIAL -->
         <section id="testimonial" >
@@ -1132,9 +1132,41 @@
         <script src="js/jquery.stellar.min.js"></script>
         <script src="js/smooth-scroll.js"></script>
         <script src="js/retina-1.1.0.min.js"></script>
-        
         <script src="js/main.js"></script>
         
+        <!-- GOOGLE MAPS -->
+        <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript">
+            // The latitude and longitude of your business / place
+            var position = [27.1959739, 78.02423269999997];
+             
+            function showGoogleMaps() {
+             
+                var latLng = new google.maps.LatLng(position[0], position[1]);
+             
+                var mapOptions = {
+                    zoom: 16, // initialize zoom level - the max value is 21
+                    streetViewControl: false, // hide the yellow Street View pegman
+                    scaleControl: true, // allow users to zoom the Google Map
+                    scrollwheel: false,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    center: latLng
+                };
+             
+                map = new google.maps.Map(document.getElementById('googlemaps'),
+                    mapOptions);
+             
+                // Show the default red marker at the location
+                marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    draggable: false,
+                    animation: google.maps.Animation.DROP
+                });
+            }
+             
+            google.maps.event.addDomListener(window, 'load', showGoogleMaps);
+        </script>
         
       	
         <!-- GOOGLE ANALYTICS -->
