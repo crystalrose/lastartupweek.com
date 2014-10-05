@@ -1139,11 +1139,11 @@
         <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript">
             // The latitude and longitude of your business / place
-            var position = [34.013235, -118.495207];
+            var start_position = [34.013235, -118.495207];
              
             function showGoogleMaps() {
              
-                var latLng = new google.maps.LatLng(position[0], position[1]);
+                var latLng = new google.maps.LatLng(start_position[0], start_position[1]);
              
                 var mapOptions = {
                     zoom: 16, // initialize zoom level - the max value is 21
@@ -1164,6 +1164,37 @@
                     draggable: false,
                     animation: google.maps.Animation.DROP
                 });
+
+                // VENUE MARKERS
+                var venue_position = [
+                    {event:"Event1", venue:"Venue1", lat:34.018628, lng:-118.486679}, 
+                    {event:"Event2", venue:"Venue2", lat:34.019642, lng:-118.494469}
+                ];
+                for (i = 0; i < venue_position.length; i++) { 
+                   // -------------- Marker 1
+                    var marker1 = new google.maps.Marker({
+                        position: new google.maps.LatLng(venue_position[i]["lat"], venue_position[i]["lng"]),
+                        map: map
+                    });
+
+
+                    // Marker 1 infowindow
+                    var infowindow1 = new google.maps.InfoWindow({
+                    content: 
+                        'Event: ' + venue_position[i]["event"] + '<br />' + 
+                        'Venue: ' + venue_position[i]["venue"] + '<br />' +
+                        '<a id="maplink" data-scroll href="#schedule">Read more</a>'
+                    });
+
+                    // Click event for infowindow
+                    google.maps.event.addListener(marker1, 'click', function() {
+                    infowindow1.open(map, marker1);
+                    });
+                    // -------- End OF 1st Marker 
+                }
+
+                
+
             }
              
             google.maps.event.addDomListener(window, 'load', showGoogleMaps);
