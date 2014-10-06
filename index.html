@@ -1136,7 +1136,7 @@
         <script src="js/main.js"></script>
         
         <!-- GOOGLE MAPS -->
-        <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <!-- // <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
         <script type="text/javascript">
             // The latitude and longitude of your business / place
             var start_position = [34.013235, -118.495207];
@@ -1165,32 +1165,43 @@
                     animation: google.maps.Animation.DROP
                 });
 
-                // VENUE MARKERS
-                var venue_position = [
-                    {event:"Event1", venue:"Venue1", lat:34.018628, lng:-118.486679}, 
-                    {event:"Event2", venue:"Venue2", lat:34.019642, lng:-118.494469}
+                function createInfoData(infoObj) {
+                    return 'Event: ' + infoObj.event + '<br />' + 
+                    'Venue: ' + infoObj.venue + '<br />' +
+                    '<a id="maplink" data-scroll href="#schedule">Read more</a>';
+                }
+
+                var infoData = [
+                    {event:"Event1", venue:"Venue1"},
+                    {event:"Event2", venue:"Venue2"}
                 ];
-                for (i = 0; i < venue_position.length; i++) { 
-                   // -------------- Marker 1
-                    var marker1 = new google.maps.Marker({
-                        position: new google.maps.LatLng(venue_position[i]["lat"], venue_position[i]["lng"]),
-                        map: map
-                    });
 
+                // VENUE MARKERS
+                var markers = [
+                    {lat:34.018628, lng:-118.486679}, 
+                    {lat:34.019642, lng:-118.494469}
+                ];
 
-                    // Marker 1 infowindow
-                    var infowindow1 = new google.maps.InfoWindow({
-                    content: 
-                        'Event: ' + venue_position[i]["event"] + '<br />' + 
-                        'Venue: ' + venue_position[i]["venue"] + '<br />' +
-                        '<a id="maplink" data-scroll href="#schedule">Read more</a>'
+                // Marker infowindow
+                var infoWindow = new google.maps.InfoWindow(),
+                    marker, i;
+
+                for (i = 0; i < markers.length; i++) { 
+                   // -------------- Marker
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(markers[i].lat, markers[i].lng),
+                        map: map,
+                        title: infoData[i].event
                     });
 
                     // Click event for infowindow
-                    google.maps.event.addListener(marker1, 'click', function() {
-                    infowindow1.open(map, marker1);
-                    });
-                    // -------- End OF 1st Marker 
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                            infoWindow.setContent( createInfoData(infoData[i]) );
+                            infoWindow.open(map, marker);
+                        }
+                    })(marker, i));
+                    
                 }
 
                 
