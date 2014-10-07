@@ -55,7 +55,10 @@ jQuery(document).ready(function($) {
  
   days.owlCarousel({
    	items : 5,
-    itemsMobile       : [479,5],
+   	itemsDesktop : [1000,5],
+   	itemsDesktopSmall : [900,5],
+   	itemsTablet : [600,5],
+    itemsMobile : false,
     pagination:false,
     responsiveRefreshRate : 100,
     afterInit : function(el){
@@ -242,28 +245,28 @@ $(window).load(function(){
 	
 
 	//GOOGLE MAP
-	function init_map() {
-    var myOptions = {
-        zoom: 14,
-        center: new google.maps.LatLng(40.801485408197856, -73.96745953467104), //change the coordinates
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-		scrollwheel: false,
-		styles: [{featureType:'all',stylers:[{saturation:-100},{gamma:0.50}]}]
-    };
-    map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);
-    marker = new google.maps.Marker({
-        map: map,
-        position: new google.maps.LatLng(40.801485408197856, -73.96745953467104) //change the coordinates
-    });
-    infowindow = new google.maps.InfoWindow({
-        content: "<b>Evential 2014</b><br/>1571 Hidden Terrace<br/> New York"  //add your address
-    });
-    google.maps.event.addListener(marker, "click", function () {
-        infowindow.open(map, marker);
-    });
-    infowindow.open(map, marker);
-	}
-	google.maps.event.addDomListener(window, 'load', init_map);
+	// function init_map() {
+ //    var myOptions = {
+ //        zoom: 14,
+ //        center: new google.maps.LatLng(40.801485408197856, -73.96745953467104), //change the coordinates
+ //        mapTypeId: google.maps.MapTypeId.ROADMAP,
+	// 	scrollwheel: false,
+	// 	styles: [{featureType:'all',stylers:[{saturation:-100},{gamma:0.50}]}]
+ //    };
+ //    map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);
+ //    marker = new google.maps.Marker({
+ //        map: map,
+ //        position: new google.maps.LatLng(40.801485408197856, -73.96745953467104) //change the coordinates
+ //    });
+ //    infowindow = new google.maps.InfoWindow({
+ //        content: "<b>Evential 2014</b><br/>1571 Hidden Terrace<br/> New York"  //add your address
+ //    });
+ //    google.maps.event.addListener(marker, "click", function () {
+ //        infowindow.open(map, marker);
+ //    });
+ //    infowindow.open(map, marker);
+	// }
+	// google.maps.event.addDomListener(window, 'load', init_map);
 	
 
 	
