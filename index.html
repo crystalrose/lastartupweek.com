@@ -1146,7 +1146,7 @@
                 var latLng = new google.maps.LatLng(start_position[0], start_position[1]);
              
                 var mapOptions = {
-                    zoom: 16, // initialize zoom level - the max value is 21
+                    zoom: 12, // initialize zoom level - the max value is 21
                     streetViewControl: false, // hide the yellow Street View pegman
                     scaleControl: true, // allow users to zoom the Google Map
                     scrollwheel: false,
@@ -1158,12 +1158,12 @@
                     mapOptions);
              
                 // Show the default red marker at the location
-                marker = new google.maps.Marker({
-                    position: latLng,
-                    map: map,
-                    draggable: false,
-                    animation: google.maps.Animation.DROP
-                });
+                // marker = new google.maps.Marker({
+                //     position: latLng,
+                //     map: map,
+                //     draggable: false,
+                //     animation: google.maps.Animation.DROP
+                // });
 
                 function createInfoData(infoObj) {
                     return 'Event: ' + infoObj.event + '<br />' + 
@@ -1172,12 +1172,14 @@
                 }
 
                 var infoData = [
+                    {event: "Startup Week LA", venue: "Basecamp - General Assembly"},
                     {event:"Event1", venue:"Venue1"},
                     {event:"Event2", venue:"Venue2"}
                 ];
 
                 // VENUE MARKERS
                 var markers = [
+                    {lat:34.013235, lng:-118.495207},
                     {lat:34.018628, lng:-118.486679}, 
                     {lat:34.019642, lng:-118.494469}
                 ];
