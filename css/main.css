@@ -100,9 +100,9 @@ section {
 }
 
 h2 {
-	font-family:'font-family: 'Open Sans', sans-serif;';
-	font-size:40px;
-	font-weight: 300; 
+	font-family:'font-family: 'Open Sans Condensed', sans-serif;';
+	font-size:48px;
+	font-weight: 700; 
 	margin-top:0;
 	margin-bottom:40px;
 }
@@ -110,6 +110,7 @@ h2 {
 h3 {
 	font-family:'font-family: 'Open Sans', sans-serif;';
 	font-weight: 700;
+	font-size: 48;
 }
 
 h4 {
@@ -264,8 +265,9 @@ h4 {
 }
 
 .fact p {
-	font-size:13px;
-	font-family:'sinkin_sans700_bold';
+	font-size:14px;
+	font-family:'Open Sans';
+	font-weight: 600;
 	letter-spacing:1px;
 }
 
@@ -346,7 +348,8 @@ h4 {
 }
 
 .speaker .title {
-	font-family:'sinkin_sans200_x_light';
+	font-family:'Open Sans';
+	font-weight: 300; 
 	font-size:12px;
 }
 
@@ -358,6 +361,7 @@ h4 {
 }
 
 #speaker-detail h2 {
+	font-family: 'Open Sans';
 	font-size:22px;
 	margin-bottom:10px;
 }
@@ -438,7 +442,7 @@ h4 {
 
 .event .name {
 	font-family:'Open Sans';
-	font-weight: 300;
+	font-weight: 600;
 	font-size:14px;
 }
 
@@ -678,7 +682,9 @@ h4 {
 
 
 #register .lead {
-	font-size:31px;
+	font-family: 'Open Sans';
+	font-weight: 400;
+	font-size:40px;
 }
 
 #register .timer {
