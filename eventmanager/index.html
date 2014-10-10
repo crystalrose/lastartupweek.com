@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Startup Week LA : Event Editor</title>
+		<style>
+			* { margin: 0; padding: 0; }
+			ul {
+				width: 100%;
+			}
+			ul li {
+				padding: 5px;
+				list-style: none;
+				border-bottom: 1px solid black;
+				height: 30px;
+				line-height: 30px;
+				width: 100%;
+			}
+			ul li button {
+				margin: 0 10px;
+				padding: 5px;
+				cursor: pointer;
+			}
+			ul li .edit-event {
+				float: right;
+			}
+			ul li .delete-event {
+				float: right;
+			}
+			#container {
+				width: 90%;
+				margin: 0 auto;
+				font-family: Helvetica, 'sans-serif';
+			}
+			#form-content {
+				display: none;
+			}
+			h1 {
+				text-align: center;
+				margin: 10px 0;
+			}
+			form input, textarea {
+				width: 100%;
+				margin: 20px 0;
+				font-size: 24px;
+			}
+			form input {
+				height: 30px;
+			}
+			textarea {
+				height: 100px;
+			}
+			input[type="submit"], #new-event, #view-event {
+				border: none;
+				background: green;
+				color: white;
+				border-radius: 0;
+				height: 30px;
+				line-height: 30px;
+			}
+
+			#new-event, #view-event {
+				text-align: center;
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<section id="container">
+			<section id="form-content">
+				<h1>Add and update events here</h1>
+				<form id="event-form">
+					<input type="text" id="userName" name="userName" required="required" placeholder="user name" />
+					<input type="password" id="password" name="password" required="required" placeholder="password" />
+					<input type="text" id="name" name="name" required="required" placeholder="Event Title" />
+					<input type="time" id="time" name="time" required="required" placeholder="time" />
+					<input type="text" id="address" name="address" required="required" placeholder="123 Event Ave" />
+					<input type="text" id="venue" name="venue" required="required" placeholder="venue" />
+					<input type="number" max="5" min="1" id="day" name="day" required="required" placeholder="day" />
+					<input type="hidden" id="lat" name="lat" />
+					<input type="hidden" id="lng" name="lng" />
+					<textarea id="description" name="description" form="event-form" required="required" placeholder="Event Description"></textarea>
+					<input type="submit" value="save" />
+				</form>
+				<div id="view-event">View Events</div>
+			</section>
+
+			<section id="list-content">
+				<h1>Select an event to edit or remove</h1>
+				<ul>
+				</ul>
+				<div id="new-event">Add New Event</div>
+			</section>
+		</section>
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script>
+			$.fn.serializeObject = function () {
+				var o = {};
+				var a = this.serializeArray();
+				$.each(a, function () {
+					if (o[this.name] !== undefined) {
+						if (!o[this.name].push) {
+						o[this.name] = [o[this.name]];
+						}
+						o[this.name].push(this.value || '');
+					} else {
+						o[this.name] = this.value || '';
+					}
+				});
+				return o;
+			};
+			$(function() {
+
+				var eventList = $('#list-content ul'),
+					listContainer = $('#list-content'),
+					formContainer = $('#form-content'),
+					newEventBtn = $('#new-event'),
+					viewEventBtn = $('#view-event'),
+					sendType = 'POST',
+					eventID = '';
+
+				$('#event-form').on('submit', function(e) {
+					e.preventDefault();
+					var data = $(this).serializeObject();
+					sendData(data);
+				});
+
+				var sendData = function(data) {
+					var url = 'http://default-environment-pvwnemptmw.elasticbeanstalk.com/events';
+					if(eventID !== '') url += '/' + eventID;
+					$.ajax({
+						url: url,
+						type: sendType,
+						dataType: 'json',
+						data: data,
+						success: function(data) {
+							if(!data.error) {
+								getEvents();
+							} else {
+								alert(data.error);
+							}
+						}
+					});
+				};
+
+				var getEvents = function() {
+					$.ajax({
+						url: 'http://default-environment-pvwnemptmw.elasticbeanstalk.com/events',
+						type: 'GET',
+						dataType: 'json',
+						success: function(data) {
+							parseEvents(data);
+						}
+					});
+				};
+
+				var parseEvents = function(events) {
+					eventList.empty();
+					formContainer.fadeOut(200, function() {
+						listContainer.fadeIn(200);
+					});
+
+					events.events.forEach(function(event) {
+						loadEvent(event);
+					});
+					bindEventButtons();
+				};
+
+				var loadEvent = function(event) {
+					var eventString = '<li data-event-id="' + event._id + '">' + event.name + '<button class="edit-event">edit</button><button class="delete-event">delete</button></li>';
+					eventList.append(eventString);
+				};
+
+				var editEvent = function(id) {
+					$.ajax({
+						url: 'http://default-environment-pvwnemptmw.elasticbeanstalk.com/events/' + id,
+						type: 'GET',
+						dataType: 'json',
+						success: function(data) {
+							showEditForm(data);
+						}
+					});
+				};
+
+				var deleteEvent = function(id) {
+					confirmDelete = confirm('Are you sure you want to delete this event?');
+					if(confirmDelete) {
+						sendType = 'DELETE';
+						$.ajax({
+							url: 'http://default-environment-pvwnemptmw.elasticbeanstalk.com/events/' + id,
+							type: sendType,
+							dataType: 'json',
+							success: function() {
+								getEvents();
+							}
+						});
+					}
+				};
+
+				var showEditForm = function(formData) {
+					sendType = 'PUT';
+					listContainer.fadeOut(200, function() {
+						formContainer.fadeIn(200);
+						$('#name').val(formData.name);
+						$('#time').val(formData.time);
+						$('#address').val(formData.address);
+						$('#venue').val(formData.venue);
+						$('#day').val(formData.day);
+						$('#description').val(formData.description);
+						$('#lat').val(formData.lat);
+						$('#lng').val(formData.lng);
+					});
+					bindAddressField();
+				};
+
+				var showNewForm = function() {
+					sendType = 'POST';
+					eventID = '';
+					$('#name').val('');
+					$('#time').val('');
+					$('#address').val('');
+					$('#venue').val('');
+					$('#day').val('');
+					$('#description').val('');
+					$('#lat').val('');
+					$('#lng').val('');
+					listContainer.fadeOut(200, function() {
+						formContainer.fadeIn(200);
+					});
+					bindAddressField();
+				};
+
+				var bindEventButtons = function() {
+					eventList.find('.edit-event').off().on('click', function() {
+						var id = $(this).parent().attr('data-event-id');
+						eventID = id;
+						editEvent(id);
+					});
+					eventList.find('.delete-event').off().on('click', function() {
+						var id = $(this).parent().attr('data-event-id');
+						eventID = id;
+						deleteEvent(id);
+					});
+
+					newEventBtn.on('click', function() {
+						showNewForm();
+					});
+
+					viewEventBtn.on('click', function() {
+						formContainer.fadeOut(200, function() {
+							listContainer.fadeIn(200);
+						});
+					});
+				};
+
+				var bindAddressField = function() {
+					$('#address').off().on('blur', function() {
+						$.ajax({
+							url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + $(this).val(),
+							type: 'GET',
+							dataType: 'json',
+							success: function(data) {
+								var location = data.results[0].geometry.location;
+								$('#lat').val(location.lat);
+								$('#lng').val(location.lng);
+							}
+						});
+					});
+				};
+
+				getEvents();
+
+			});
+		</script>
+	</body>
+</html>
