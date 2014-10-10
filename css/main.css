@@ -108,9 +108,9 @@ h2 {
 }
 
 h3 {
-	font-family:'font-family: 'Open Sans', sans-serif;';
-	font-weight: 700;
-	font-size: 48;
+	font-family:'font-family: 'Open Sans Condensed', sans-serif;';
+	font-weight: 400;
+	font-size: 48px;
 }
 
 h4 {
@@ -121,6 +121,13 @@ h4 {
 	margin-bottom:5px;	
 }
 
+h5 {
+	font-family:'Open Sans';
+	font-size:17px;
+	font-weight: 400;
+	margin-bottom:5px;	
+}
+}
 .lead {
 	font-family:'Open Sans';
 	font-weight: 400;
@@ -735,9 +742,9 @@ h4 {
 }
 
 #contact-title {
-	font-family: 'Economica';
-	font-size: 61px;
-	font-weight: 700;
+	font-family: 'Open Sans Condensed';
+	font-size: 48;
+	font-weight: 600;
 	color: white;
 }
 
@@ -764,7 +771,7 @@ h4 {
 	width: 200px;
 	height: 160px;
 	display: inline-block;
-	opacity: .7;
+	opacity: .333;
 	-webkit-transition: all .3s ease-out;
 	-moz-transition: all .3s ease-out;
 	-o-transition: all .3s ease-out;
@@ -874,6 +881,7 @@ div.sendgrid-subscription-widget form label {
 	min-height: 1px;
 	padding-left: 15px;
 	padding-right: 15px;
+	display: inline-block !important;
 }
 
 div.sendgrid-subscription-widget form label span {
