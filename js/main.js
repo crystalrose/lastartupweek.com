@@ -242,7 +242,7 @@ $(window).load(function(){
 	var getEventSchedule = function() {
 
 		$.ajax({
-			url: 'http://localhost:3000/events/detailed',
+			url: 'http://default-environment-pvwnemptmw.elasticbeanstalk.com/events/detailed',
 			type: 'GET',
 			dataType: 'json',
 			success: function(data) {

@@ -720,7 +720,7 @@ h4 {
 #contact {
 	font-size:16px;
 	position:relative;
-	background: url(../img/icon-bg.jpg) center center repeat fixed;
+	background: url(../img/icon-bg.jpg) center center;
 }
 
 .contact {
