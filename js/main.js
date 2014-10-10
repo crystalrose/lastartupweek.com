@@ -42,7 +42,9 @@ jQuery(document).ready(function($) {
 	
 	//OWLCAROUSEL SCHEDULE
 	var timetable = $("#timetable");
-  var days = $("#days");
+  	var days = $("#days");
+
+  	getEventSchedule();
  
   timetable.owlCarousel({
     singleItem : true,
@@ -139,12 +141,6 @@ jQuery(document).ready(function($) {
 		navigation : true,
 		navigationText : ['<i class="fa fa-3x fa-chevron-circle-left"></i>','<i class="fa fa-3x  fa-chevron-circle-right"></i>'],
 	});
-
-	$('.item .event').on('click', function() {
-		$('.item .event.active').removeClass('active');
-		$(this).addClass('active');
-	});
-	
 	
 	//FIX HOVER EFFECT ON IOS DEVICES
 	document.addEventListener("touchstart", function(){}, true);
@@ -241,6 +237,55 @@ $(window).load(function(){
 			});
 		}
 	
+	};
+
+	var getEventSchedule = function() {
+
+		$.ajax({
+			url: 'http://localhost:3000/events/detailed',
+			type: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				parseEvents(data);
+			}
+		});
+
+	};
+
+	var parseEvents = function(data) {
+
+		data.events.forEach(function(day) {
+			for(time in day) {
+				parseTime(day[time]);
+			}
+		});
+
+	};
+
+	var parseTime = function(eventArray) {
+
+		var dayContainer = $('#day' + eventArray[0].day);
+
+		var eventStr = '<div class="event"><div class="event-inner">'
+            	+ '<div class="icon">'
+                + '<i class="fa fa-2x fa-clock-o"></i>'
+                + '<span class="time">'+ eventArray[0].time +'</span></div><div class="description">';
+
+		eventArray.forEach(function(event) {
+
+			eventStr += '<h3>' + event.name + '</h3><p>' + event.description + '</p>';
+
+		});
+
+		eventStr += '</div></div></div>';
+
+		dayContainer.append(eventStr);
+
+		$('.item .event').on('click', function() {
+			$('.item .event.active').removeClass('active');
+			$(this).addClass('active');
+		});
+
 	};
 	
 
