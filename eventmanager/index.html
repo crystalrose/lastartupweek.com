@@ -58,6 +58,11 @@
 				line-height: 30px;
 			}
 
+			#start-time, #end-time {
+				width: 40%;
+				float: left;
+			}
+
 			#new-event, #view-event {
 				text-align: center;
 				margin-top: 20px;
@@ -72,7 +77,9 @@
 					<input type="text" id="userName" name="userName" required="required" placeholder="user name" />
 					<input type="password" id="password" name="password" required="required" placeholder="password" />
 					<input type="text" id="name" name="name" required="required" placeholder="Event Title" />
-					<input type="time" id="time" name="time" required="required" placeholder="time" />
+					<input type="time" id="start-time" name="start-time" required="required" placeholder="time" />
+					<span style="float:left;height:30px;line-height:70px;margin:0 5%;">until</span>
+					<input type="time" id="end-time" name="end-time" required="required" placeholder="time" />
 					<input type="text" id="address" name="address" required="required" placeholder="123 Event Ave" />
 					<input type="text" id="venue" name="venue" required="required" placeholder="venue" />
 					<input type="number" max="5" min="1" id="day" name="day" required="required" placeholder="day" />
@@ -201,7 +208,8 @@
 					listContainer.fadeOut(200, function() {
 						formContainer.fadeIn(200);
 						$('#name').val(formData.name);
-						$('#time').val(formData.time);
+						$('#start-time').val(formData['start-time']);
+						$('#end-time').val(formData['end-time']);
 						$('#address').val(formData.address);
 						$('#venue').val(formData.venue);
 						$('#day').val(formData.day);
@@ -216,7 +224,8 @@
 					sendType = 'POST';
 					eventID = '';
 					$('#name').val('');
-					$('#time').val('');
+					$('#start-time').val('');
+					$('#end-time').val('');
 					$('#address').val('');
 					$('#venue').val('');
 					$('#day').val('');

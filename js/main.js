@@ -266,20 +266,20 @@ $(window).load(function(){
 
 		var dayContainer = $('#day' + eventArray[0].day);
 
-		var eventStr = '<div class="event"><div class="event-inner">'
-            	+ '<div class="icon">'
-                + '<i class="fa fa-2x fa-clock-o"></i>'
-                + '<span class="time">'+ eventArray[0].time +'</span></div><div class="description">';
 
 		eventArray.forEach(function(event) {
 
-			eventStr += '<h3>' + event.name + '</h3><p>' + event.description + '</p>';
+		var eventStr = '<div class="event"><div class="event-inner">'
+            	+ '<div class="icon">'
+                + '<i class="fa fa-2x fa-clock-o"></i>'
+                + '<span class="time">'+ event['start-time'] + ' - ' + event['end-time'] + '</span></div><div class="description">';
+			eventStr += '<h3>' + event.name + '</h3><p>' + event.description + '</p><p class="bold">' + event.venue + '</p>';
 
+			eventStr += '</div></div></div>';
+			dayContainer.append(eventStr);
 		});
 
-		eventStr += '</div></div></div>';
 
-		dayContainer.append(eventStr);
 
 		$('.item .event').on('click', function() {
 			$('.item .event.active').removeClass('active');
