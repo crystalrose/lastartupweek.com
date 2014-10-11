@@ -70,6 +70,11 @@
 	border-radius: 30px;
 }
 
+.owl-item.synced .item {
+	color: #ffffff !important;
+	background: #e74c3c !important;
+}
+
 /* preloading images */
 .owl-item.loading{
 	min-height: 150px;

@@ -144,7 +144,6 @@ jQuery(document).ready(function($) {
 	
 	//FIX HOVER EFFECT ON IOS DEVICES
 	document.addEventListener("touchstart", function(){}, true);
-	
 
 });
 	
@@ -268,7 +267,7 @@ $(window).load(function(){
 		var eventStr = '<div class="event"><div class="event-inner">'
             	+ '<div class="icon">'
                 + '<i class="fa fa-2x fa-clock-o"></i>'
-                + '<span class="time">'+ event['start-time'] + ' - ' + event['end-time'] + '</span></div><div class="description">';
+                + '<span class="time">'+ convertTime(event['start-time']) + ' - ' + convertTime(event['end-time']) + '</span></div><div class="description">';
 			eventStr += '<h3>' + event.name + '</h3><p>' + event.description + '</p><p class="bold">' + event.venue + '</p>';
 
 			eventStr += '</div></div></div>';
@@ -282,6 +281,22 @@ $(window).load(function(){
 			$(this).addClass('active');
 		});
 
+	};
+
+	var convertTime = function(time) {
+		var hour = time.split(':')[0],
+			minutes = time.split(':')[1],
+			suffix = '';
+
+		if(hour > 11 && hour < 24) {
+			suffix = 'PM';
+		} else {
+			suffix = 'AM';
+		}
+
+		if(hour > 12) hour -= 12;
+
+		return hour + ':' + minutes + suffix;
 	};
 	
 
