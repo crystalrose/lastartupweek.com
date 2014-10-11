@@ -255,19 +255,15 @@ $(window).load(function(){
 	var parseEvents = function(data) {
 
 		data.events.forEach(function(day) {
-			for(time in day) {
-				parseTime(day[time]);
-			}
+			parseTime(day);
 		});
 
 	};
 
 	var parseTime = function(eventArray) {
 
-		var dayContainer = $('#day' + eventArray[0].day);
-
-
 		eventArray.forEach(function(event) {
+		var dayContainer = $('#day' + event.day);
 
 		var eventStr = '<div class="event"><div class="event-inner">'
             	+ '<div class="icon">'
