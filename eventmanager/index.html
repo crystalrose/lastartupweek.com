@@ -82,6 +82,7 @@
 					<input type="time" id="end-time" name="end-time" required="required" placeholder="time" />
 					<input type="text" id="address" name="address" placeholder="123 Event Ave" />
 					<input type="text" id="venue" name="venue" required="required" placeholder="venue" />
+					<input type="text" id="eventBrite" name="eventBrite" placeholder="event brite url" />
 					<input type="number" max="5" min="1" id="day" name="day" required="required" placeholder="day" />
 					<input type="hidden" id="lat" name="lat" />
 					<input type="hidden" id="lng" name="lng" />
@@ -212,6 +213,7 @@
 						$('#end-time').val(formData['end-time']);
 						$('#address').val(formData.address);
 						$('#venue').val(formData.venue);
+						$('#eventBrite').val(formData.eventBrite);
 						$('#day').val(formData.day);
 						$('#description').val(formData.description);
 						$('#lat').val(formData.lat);
@@ -228,6 +230,7 @@
 					$('#end-time').val('');
 					$('#address').val('');
 					$('#venue').val('');
+					$('#eventBrite').val('');
 					$('#day').val('');
 					$('#description').val('');
 					$('#lat').val('');

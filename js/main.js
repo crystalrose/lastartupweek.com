@@ -83,6 +83,7 @@ jQuery(document).ready(function($) {
   $("#days").on("click", ".owl-item", function(e){
     e.preventDefault();
     var number = $(this).data("owlItem");
+    $('#timetable').height( $('#timetable .owl-item:eq(' + number + ')').height() );
     timetable.trigger("owl.goTo",number);
   });
  
@@ -160,7 +161,7 @@ $(window).load(function(){
     
 	
     //PRELOADER
-    $('#preload').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+    //$('#preload').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
 	
 	
 	//HEADER ANIMATION
@@ -270,15 +271,20 @@ $(window).load(function(){
                 + '<span class="time">'+ convertTime(event['start-time']) + ' - ' + convertTime(event['end-time']) + '</span></div><div class="description">';
 			eventStr += '<h3>' + event.name + '</h3><p>' + event.description + '</p><p class="bold">' + event.venue + '</p>';
 
-			eventStr += '</div></div></div>';
+			eventStr += '<span class="show-more">&#10094;</span></div></div></div>';
 			dayContainer.append(eventStr);
 		});
 
-
+		// Height fix
+		$('#timetable').height( $('#timetable .owl-item:eq(0)').height() );
 
 		$('.item .event').on('click', function() {
-			$('.item .event.active').removeClass('active');
-			$(this).addClass('active');
+			if($(this).hasClass('active')) {
+				$(this).removeClass('active');
+			} else {
+				$('.item .event.active').removeClass('active');
+				$(this).addClass('active');
+			}
 		});
 
 	};
