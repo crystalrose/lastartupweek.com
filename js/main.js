@@ -85,6 +85,14 @@ jQuery(document).ready(function($) {
     var number = $(this).data("owlItem");
     $('#timetable').height( $('#timetable .owl-item:eq(' + number + ')').height() );
     timetable.trigger("owl.goTo",number);
+    	$('.item .event').off().on('click', function() {
+			if($(this).hasClass('active')) {
+				$(this).removeClass('active');
+			} else {
+				$('.item .event.active').removeClass('active');
+				$(this).addClass('active');
+			}
+		});
   });
  
   function center(number){
@@ -278,7 +286,7 @@ $(window).load(function(){
 		// Height fix
 		$('#timetable').height( $('#timetable .owl-item:eq(0)').height() );
 
-		$('.item .event').on('click', function() {
+		$('.item .event').off().on('click', function() {
 			if($(this).hasClass('active')) {
 				$(this).removeClass('active');
 			} else {
