@@ -1047,7 +1047,13 @@ input:-ms-input-placeholder {
 
 @media screen and (max-width: 732px) {
 	div.sendgrid-subscription-widget form label {
-		width: 65%;
+		width: 60%;
+	}
+	#days .item {
+		padding: 10px 0;
+	}
+	.event .description {
+		height: 120px;
 	}
 }
 
@@ -1057,4 +1063,5 @@ input:-ms-input-placeholder {
 		font-size: 13px;
 	}
 }
+
 
