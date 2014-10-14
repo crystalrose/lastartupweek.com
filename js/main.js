@@ -1,7 +1,8 @@
+var timetableHeight;
 jQuery(document).ready(function($) {
    
    'use strict';
-   
+
 	
 	//SMOOTH SCROLL
 	smoothScroll.init({
@@ -84,15 +85,20 @@ jQuery(document).ready(function($) {
     e.preventDefault();
     var number = $(this).data("owlItem");
     $('#timetable').height( $('#timetable .owl-item:eq(' + number + ')').height() );
+    timetableHeight = $('#timetable').height();
     timetable.trigger("owl.goTo",number);
-    	$('.item .event').off().on('click', function() {
-			if($(this).hasClass('active')) {
-				$(this).removeClass('active');
-			} else {
-				$('.item .event.active').removeClass('active');
-				$(this).addClass('active');
-			}
-		});
+	$('.item .event').off().on('click', function() {
+		if($(this).hasClass('active')) {
+			$(this).removeClass('active');
+			$('#timetable').css({'height': '-=' + ( $(this).height() + 30 ) });
+			timetableHeight = $('#timetable').height();
+		} else {
+			$('.item .event.active').removeClass('active');
+			$('#timetable').height(timetableHeight);
+			$(this).addClass('active');
+			$('#timetable').css({'height': '+=' +  ( $(this).height() + 30 ) });
+		}
+	});
   });
  
   function center(number){
@@ -155,9 +161,6 @@ jQuery(document).ready(function($) {
 	document.addEventListener("touchstart", function(){}, true);
 
 });
-	
-	
-
 
 $(window).load(function(){
 	
@@ -279,7 +282,7 @@ $(window).load(function(){
                 + '<span class="time">'+ convertTime(event['start-time']) + ' - ' + convertTime(event['end-time']) + '</span></div><div class="description">';
 			eventStr += '<h3>' + event.name + '</h3><p>' + event.description + '</p><p class="bold">' + event.venue + '</p>';
 
-			eventStr += '<span class="show-more">&#10094;</span></div></div></div>';
+			eventStr += '<span class="show-more">^</span></div></div></div>';
 			dayContainer.append(eventStr);
 		});
 
@@ -289,9 +292,13 @@ $(window).load(function(){
 		$('.item .event').off().on('click', function() {
 			if($(this).hasClass('active')) {
 				$(this).removeClass('active');
+				$('#timetable').css({'height': '-=' + ( $(this).height() + 30 ) });
+				timetableHeight = $('#timetable').height();
 			} else {
 				$('.item .event.active').removeClass('active');
+				$('#timetable').height(timetableHeight);
 				$(this).addClass('active');
+				$('#timetable').css({'height': '+=' +  ( $(this).height() + 30 ) });
 			}
 		});
 
