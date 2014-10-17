@@ -924,6 +924,24 @@ div.sendgrid-subscription-widget form label input {
 
 div.sendgrid-subscription-widget form > div {
 	padding-left: 2%;
+	text-align: center !important;
+	text-transform: uppercase !important;
+	font-family:'Open Sans', sans-serif !important;
+	color: #e74c3c;
+}
+
+.sendgrid-subscription-widget div.response.error {
+	text-align: center !important;
+	text-transform: uppercase !important;
+	font-family:'Open Sans', sans-serif !important;
+	color: #e74c3c !important;
+}
+
+.sendgrid-subscription-widget div.response.success {
+	color: white !important;
+	text-align: center !important;
+	text-transform: uppercase !important;
+	font-family:'Open Sans', sans-serif !important;
 }
 
 input::-webkit-input-placeholder {
