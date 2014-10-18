@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<title>LA Startup Week : SNOWSHOE</title>
 		<link rel="stylesheet" href="../css/bootstrap.css">
 		<style>
 			html, body { width: 100%; height: 100%; overflow: hidden; }
 			ul li {
 				list-style: none;
-				height: 100px;
+				height: 70px;
 				position: relative;
 			}
 			img {
 				width: 95%;
-				max-width: 175px;
+				max-width: 125px;
 				position: absolute;
 				top: 50%;
 				left: 50%;
@@ -34,11 +35,13 @@
 				cursor: pointer;
 			}
 			#touchy {
+				display: none;
 				position: absolute;
 				width: 100%;
 				height: 100%;
 				left: 0;
-				top: 100%;
+				top: 0;
+				z-index: 10;
 				text-align: center;
 				background: white;
 				-webkit-transition: all .5s ease-out;
@@ -47,7 +50,7 @@
 				transition: all .5s ease-out;
 			}
 			#touchy.active {
-				top: 0;
+				display: block;
 			}
 			#touchy p {
 				position: absolute;
@@ -128,7 +131,7 @@
 				var timeouts={};
 				var errorURL ="error.html";//set this to a URL you want to direct to for incompatible devices
 
-				var callbackURL = "http://yourCallbackURL.com";// set this to a URL that will host your callback data
+				var callbackURL = "http://lasw2014.herokuapp.com/stamp_info";// set this to a URL that will host your callback data
 
 				function errorCheck(number){
 				  if(insufficientCount >2){
@@ -223,6 +226,17 @@
 
 				$('#stamp-btn').on('click', function() {
 					$('#touchy').addClass('active');
+				});
+
+				$.ajax({
+					url: 'http://lasw2014.herokuapp.com/stamps?stamped=true',
+					dataType: 'json',
+					type: 'GET',
+					success: function(data) {
+						data.forEach(function(company) {
+							$('li[data-company="'+ company.name +'"]').addClass('activated');
+						});
+					}
 				});
 
 			});
