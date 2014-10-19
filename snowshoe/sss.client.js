@@ -16,7 +16,14 @@ sss.client = (function() {
              'error': function(data) { 
                  error_cbk && error_cbk(data.responseJSON); 
              }, 
-             'success': function(data) { cbk && cbk(data); }
+             'success': function(data) { 
+                // cbk && cbk(data); 
+                if(data.success) {
+                    window.location = 'stamps.html';
+                } else {
+                    window.location = 'error.html';
+                }
+            }
             });
     };
     self.ajax = ajax;

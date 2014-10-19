@@ -78,6 +78,7 @@
                 $('#sign_in_go').on('click', function() {
                     $('#name').val(' ');
                     var email = $('#email').val();
+                    $('#sign_up_go, #sign_in_go').fadeOut(0);
 
                     $.ajax({
                         url: 'http://lasw2014.herokuapp.com/login',
@@ -85,7 +86,11 @@
                         dataType: 'json',
                         data: {email: email},
                         success: function(data) {
-                            console.log(data);
+                            if(data.success) {
+                                window.location = 'stamps.html';
+                            } else {
+                                alert('Error with request, please try again.');
+                            }
                         }
                     });
                 });
@@ -93,6 +98,7 @@
                 $('#sign_up_go').on('click', function() {
                     var email = $('#email').val(),
                         name = $('#name').val();
+                    $('#sign_up_go, #sign_in_go').fadeOut(0);
 
                     $.ajax({
                         url: 'http://lasw2014.herokuapp.com/signup',
@@ -100,7 +106,11 @@
                         dataType: 'json',
                         data: {email: email, name: name},
                         success: function(data) {
-                            console.log(data);
+                            if(data.success) {
+                                window.location = 'stamps.html';
+                            } else {
+                                alert('Error with request, please try again.');
+                            }
                         }
                     });
                 });

@@ -46,7 +46,11 @@
 	                        dataType: 'json',
 	                        data: {code: code},
 	                        success: function(data) {
-	                            console.log(data);
+	                            if(data.success) {
+	                                window.location = 'stamps.html';
+	                            } else {
+	                            	alert('Error with request, please try again.');
+	                            }
 	                        }
 	                    });
 					}

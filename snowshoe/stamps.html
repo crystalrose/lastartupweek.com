@@ -236,7 +236,11 @@
 						dataType: 'json',
 						type: 'DELETE',
 						success: function(data) {
-							console.log(data);
+							if(data.success) {
+                                window.location = 'index.html';
+                            } else {
+                            	alert('Error with request, please try again.');
+                            }
 						}
 					});
 				});
