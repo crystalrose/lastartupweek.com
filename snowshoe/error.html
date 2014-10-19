@@ -34,6 +34,24 @@
 		<script>
 			$(function() {
 
+				$('#code-btn').on('click', function() {
+					var code = $.trim($('#code-input').val());
+					if(code == '') {
+						alert('Please enter a code');
+						return false;
+					} else {
+						$.ajax({
+	                        url: 'http://lasw2014.herokuapp.com/stamp_info_code',
+	                        type: 'POST',
+	                        dataType: 'json',
+	                        data: {code: code},
+	                        success: function(data) {
+	                            console.log(data);
+	                        }
+	                    });
+					}
+
+				});
 
 			});
 		</script>

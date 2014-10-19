@@ -1,9 +1,31 @@
-var timetableHeight;
+var dayNumber = 0;
+var isMobile = {
+	Android: function() {
+	    return navigator.userAgent.match(/Android/i) ? true : false;
+	},
+	BlackBerry: function() {
+	    return navigator.userAgent.match(/BlackBerry/i) ? true : false;
+	},
+	iOS: function() {
+	    return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? true : false;
+	},
+	Windows: function() {
+	    return navigator.userAgent.match(/IEMobile/i) ? true : false;
+	},
+	any: function() {
+	    return (this.Android() || this.BlackBerry() || this.iOS() || this.Windows());
+	}
+};
+if(isMobile.any()) {
+	mobileDevice = true;
+} else {
+	mobileDevice = false;
+}
 jQuery(document).ready(function($) {
    
    'use strict';
 
-	
+
 	//SMOOTH SCROLL
 	smoothScroll.init({
 		speed: 500, // How fast to complete the scroll in milliseconds
@@ -84,19 +106,19 @@ jQuery(document).ready(function($) {
   $("#days").on("click", ".owl-item", function(e){
     e.preventDefault();
     var number = $(this).data("owlItem");
+    dayNumber = $(this).data("owlItem");
     $('#timetable').height( $('#timetable .owl-item:eq(' + number + ')').height() );
-    timetableHeight = $('#timetable').height();
     timetable.trigger("owl.goTo",number);
 	$('.item .event').off().on('click', function() {
 		if($(this).hasClass('active')) {
 			$(this).removeClass('active');
-			$('#timetable').css({'height': '-=' + ( $(this).height() + 30 ) });
-			timetableHeight = $('#timetable').height();
+			if(!mobileDevice) $('#timetable').height( $('#timetable .owl-item:eq(' + dayNumber + ')').height() );
+			if(mobileDevice) $('#timetable').height( $('#timetable .owl-item:eq(' + number + ')').height() );
 		} else {
 			$('.item .event.active').removeClass('active');
-			$('#timetable').height(timetableHeight);
 			$(this).addClass('active');
-			$('#timetable').css({'height': '+=' +  ( $(this).height() + 30 ) });
+			if(!mobileDevice) $('#timetable').height( $('#timetable .owl-item:eq(' + dayNumber + ')').height() );
+			if(mobileDevice) $('#timetable').css('height', '+=600px' );
 		}
 	});
   });
@@ -292,13 +314,13 @@ $(window).load(function(){
 		$('.item .event').off().on('click', function() {
 			if($(this).hasClass('active')) {
 				$(this).removeClass('active');
-				$('#timetable').css({'height': '-=' + ( $(this).height() + 30 ) });
-				timetableHeight = $('#timetable').height();
+				if(!mobileDevice) $('#timetable').height( $('#timetable .owl-item:eq(' + dayNumber + ')').height() );
+				if(mobileDevice) $('#timetable').css( 'height', $('#timetable .owl-item:eq(' + number + ')').height() );
 			} else {
 				$('.item .event.active').removeClass('active');
-				$('#timetable').height(timetableHeight);
 				$(this).addClass('active');
-				$('#timetable').css({'height': '+=' +  ( $(this).height() + 30 ) });
+				if(!mobileDevice) $('#timetable').height( $('#timetable .owl-item:eq(' + dayNumber + ')').height() );
+				if(mobileDevice) $('#timetable').css('height', '+=600px' );
 			}
 		});
 

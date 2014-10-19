@@ -61,6 +61,7 @@
 
         <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script>
+
             $(function() {
                 $('#sign_in').on('click', function() {
                     $('#email').fadeIn(200);
@@ -79,8 +80,8 @@
                     var email = $('#email').val();
 
                     $.ajax({
-                        url: 'http://lasw2014.herokuapp.com/signin',
-                        type: 'PUT',
+                        url: 'http://lasw2014.herokuapp.com/login',
+                        type: 'POST',
                         dataType: 'json',
                         data: {email: email},
                         success: function(data) {
