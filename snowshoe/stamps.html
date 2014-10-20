@@ -30,7 +30,7 @@
 			li.activated img {
 				opacity: 1;
 			}
-			#stamp-btn, #signout-btn {
+			#stamp-btn, #signout-btn, #code-btn {
 				text-align: center;
 				cursor: pointer;
 			}
@@ -107,8 +107,9 @@
 				</div>
 
 				<div class="row">
-					<div id="stamp-btn" class="col-lg-12">STAMP SCREEN</div>
-					<div id="signout-btn" class="col-lg-12">SIGN OUT</div>
+					<div id="stamp-btn" class="col-lg-4 col-sm-4 col-xs-4">STAMP SCREEN</div>
+					<div id="code-btn" class="col-lg-4 col-sm-4 col-xs-4">INPUT CODE</div>
+					<div id="signout-btn" class="col-lg-4 col-sm-4 col-xs-4">SIGN OUT</div>
 				</div>
 			</div>
 		</section>
@@ -122,6 +123,34 @@
 		<script type="text/javascript" src="sss.util.js"></script>
 		<script type="text/javascript" src="jquery.json-2.4.min.js"></script>
 		<script>
+			var userEmail;
+			function setCookie(cname, cvalue, exdays) {
+			    var d = new Date();
+			    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+			    var expires = "expires="+d.toUTCString();
+			    document.cookie = cname + "=" + cvalue + "; " + expires;
+			}
+
+		function getCookie(cname) {
+		    var name = cname + "=";
+		    var ca = document.cookie.split(';');
+		    for(var i=0; i<ca.length; i++) {
+		        var c = ca[i];
+		        while (c.charAt(0)==' ') c = c.substring(1);
+		        if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+		    }
+		    return "";
+		}
+
+		function checkCookie() {
+		    if (getCookie("userEmail") != "") {
+		        userEmail = getCookie("userEmail");
+		        alert(userEmail);
+		    } else {
+		    	userEmail = '';
+		    	//window.location = 'index.html';
+		    }
+		}
 
 			$(function() {
 
@@ -133,7 +162,7 @@
 				var timeouts={};
 				var errorURL ="error.html";//set this to a URL you want to direct to for incompatible devices
 
-				var callbackURL = "http://lasw2014.herokuapp.com/stamp_info";// set this to a URL that will host your callback data
+				var callbackURL = "http://lasw2014.herokuapp.com/stamp_info?email=" + getCookie("userEmail");// set this to a URL that will host your callback data
 
 				function errorCheck(number){
 				  if(insufficientCount >2){
@@ -231,30 +260,28 @@
 				});
 
 				$('#signout-btn').on('click', function() {
-					$.ajax({
-						url: 'http://lasw2014.herokuapp.com/logout',
-						dataType: 'json',
-						type: 'DELETE',
-						success: function(data) {
-							if(data.success) {
-                                window.location = 'index.html';
-                            } else {
-                            	alert('Error with request, please try again.');
-                            }
-						}
-					});
+					setCookie('userEmail', "", 90);
+					window.location = 'index.html';
 				});
 
-				$.ajax({
-					url: 'http://lasw2014.herokuapp.com/stamps?stamped=true',
-					dataType: 'json',
-					type: 'GET',
-					success: function(data) {
-						data.forEach(function(company) {
-							$('li[data-company="'+ company.name +'"]').addClass('activated');
-						});
-					}
+				$('#code-btn').on('click', function() {
+					window.location = 'error.html';
 				});
+
+				if(getCookie("userEmail") != "") {
+					$.ajax({
+						url: 'http://lasw2014.herokuapp.com/stamps?stamped=true&email=' + getCookie("userEmail"),
+						dataType: 'json',
+						type: 'GET',
+						success: function(data) {
+							data.forEach(function(company) {
+								$('li[data-company="'+ company.name +'"]').addClass('activated');
+							});
+						}
+					});
+				} else {
+					window.location = 'index.html';
+				}
 
 			});
 		</script>

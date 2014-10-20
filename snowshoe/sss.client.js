@@ -17,12 +17,12 @@ sss.client = (function() {
                  error_cbk && error_cbk(data.responseJSON); 
              }, 
              'success': function(data) { 
-                // cbk && cbk(data); 
-                if(data.success) {
+                cbk && cbk(data); 
+                // if(data.success) {
                     window.location = 'stamps.html';
-                } else {
-                    window.location = 'error.html';
-                }
+                // } else {
+                //     window.location = 'error.html';
+                // }
             }
             });
     };
