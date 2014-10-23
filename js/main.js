@@ -20,6 +20,7 @@ if(isMobile.any()) {
 	mobileDevice = true;
 } else {
 	mobileDevice = false;
+	$('.snowshoe-link').remove();
 }
 jQuery(document).ready(function($) {
    
